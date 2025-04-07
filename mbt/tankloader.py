@@ -40,9 +40,3 @@ class Tankloader:
             return f"{shot} shot! Remaining shells: {racks}"
         else:
             return f"{shot} shot! Remaining shells: {racks}\n{self.load(self.racks[self.target])}"
-
-m1 = Tankloader(["AP","HE", "AP", "APHE","HEAT"])
-print(m1.load("HE"))
-print(m1.load("AP"))
-print(m1.shoot())
-print(m1.load("HE"))
