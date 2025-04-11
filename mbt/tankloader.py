@@ -6,24 +6,24 @@ class Tankloader:
         self.ammo = False
         self.chamber = "Empty"
         self.racks = {}
-        for i in range(0, len(content)):
+        for i in range(0, len(content)): # Convert list into a dictionary to preserve individual slots
             self.racks[i] = content[i]
 
     def load(self, type:str):
 
-        if type not in self.racks.values():
+        if type not in self.racks.values(): # Check if there is ammo available
             return f"No {type} remaining!"
         
         shortest = len(self.content)
-        for i in self.racks:
-            cwdist = (i - self.target) % len(self.content)
-            ccdist = (self.target - i) % len(self.content)
-            distance = min(cwdist,ccdist)
+        for i in self.racks: # Find the shortest distance, either clockwise or counterclockwise
+            clockwise_distance = (i - self.target) % len(self.content)
+            anticlockwisedistance = (self.target - i) % len(self.content)
+            distance = min(clockwise_distance,anticlockwisedistance)
             if self.racks[i] == type and distance < shortest:
                 shortest = i
         self.target = shortest
 
-        if self.chamber == "Empty":
+        if self.chamber == "Empty": # Proceed with loading if chamber is empty
             self.chamber = (self.racks[self.target])
             self.ammo = self.target
             self.racks[self.target] = "Empty"
@@ -41,9 +41,9 @@ class Tankloader:
         if self.chamber == "Empty":
             return "the chamber is empty"
         
-        shot = (self.chamber)
+        shot = (self.chamber) # Store shot type for display purposes
         self.chamber = "Empty"
-        racks = set(self.racks.values())
+        racks = set(self.racks.values()) 
         racks.remove("Empty")
 
         if self.target == self.ammo:
